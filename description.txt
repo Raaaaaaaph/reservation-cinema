@@ -1,6 +1,6 @@
 Le diagramme de classe UML est décrit comme cela :
 
-• Un utilisateur possède un ID un nom et un prénom. Il se connecte avec son adresse email et un mot de passe.
+• Un utilisateur possède un ID un nom et un prénom. Il se connecte avec son adresse email et un mot de passe. Le mot de passe sera sécurisé par une méthode hash.
 
 • Un utilisateur client renseigne sa date de naissance lors de l'inscription et peut envoyer une photo de sa carte étudiante ou la présenter au guichet pour la faire scanner. En fonction de ces critères, il dispose ou non d'un tarif particulier.
 
