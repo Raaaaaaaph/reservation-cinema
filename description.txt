@@ -1,6 +1,6 @@
 Le diagramme de classe UML est décrit comme cela :
 
-• Un utilisateur possède un ID et un nom. Il se connecte avec son adresse email et un mot de passe.
+• Un utilisateur possède un ID un nom et un prénom. Il se connecte avec son adresse email et un mot de passe.
 
 • Un utilisateur client renseigne sa date de naissance lors de l'inscription et peut envoyer une photo de sa carte étudiante ou la présenter au guichet pour la faire scanner. En fonction de ces critères, il dispose ou non d'un tarif particulier.
 
@@ -8,6 +8,32 @@ Le diagramme de classe UML est décrit comme cela :
 
 • Le client peut achetter un ticket sur place, le paiement se fait alors en direct mais il peut également effectuer un paiement en ligne. Dans le cas du paiement en ligne, le ticket que le client désire réserver sera d'abord stocké dans son panier. Au bout de 60 minutes après avoir ajouté un article au panier, si le paiement n'est toujours pas validé, le panier du client sera vidé pour libérer la place.
 
+• Le panier est volatile. Il dispose d'un id, l'id du client et de l'id du ticket. Si le paiement n'a pas été validé, il sera considéré comme expiré.
+
+• Le paiement est composé d'un id, de la somme du panier ou du ticket acheté au guichet, de l'id du ticket et l'id du panier dans le cas d'un règlement en ligne.
+
 • Le ticket est généré lorsque le client choisi sa séance. Il contient toutes les informations de la projection. Il y a un id de ticket dont le préfixe change en fonction de la séance. Lorsque le nombre de places disponibles pour la séance est égal à zéro, il n'est plus possible de générer de ticket.
 
-• Le panier est volatile. Il dispose d'un id, l'id du client et de l'id du ticket. Si le paiement n'a pas été validé, il sera considéré comme expiré.
+• Une projection contient un id, une date ainsi qu'une heure. Elle comprend également le titre du film et sa durée ainsi que la version diffusée.
+
+• La version détermine la langue dans laquelle est diffusé le film. Elle comporte un id et un libelle.
+
+• Le film possède un id, un titre, une durée, une date de sortie et une synopsis. Il lui est également attribué un genre, une classification d'âge requis et le nom du réalisateur.
+
+• La classification respecte les mesures de classification d'âge du visa d'exploitation cinématographique pour la protection de l'enfance. Il comporte un id et un libelle.
+
+• Le réalisateur possède un id, un nom et une nationalité.
+
+• Le genre possède un id ainsi qu'un libelle. Il permet de catégoriser les films.
+
+• Un cinéma possède un id, un nom, un nombre de salles et une adresse. Il est présent dans une ville.
+
+• Une ville possède un id, un nom et un code postal.
+
+• Une salle contenue dans un cinéma possède un id, un numéro et un nombre de places.
+
+• Une place dans une salle de cinéma contient un id, une colonne et une ligne.
+
+• Un utilisateur propriétaire possède un id, le nombre de cinéma qu'il possède et peut ajouter des séances.
+
+• Un administrateur a une vue d'ensemble sur le logiciel. Il possède un id et un numéro de téléphone pour le joindre en cas de problème.
