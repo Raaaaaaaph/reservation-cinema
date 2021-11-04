@@ -1,0 +1,13 @@
+Le diagramme de classe UML est décrit comme cela :
+
+• Un utilisateur possède un ID et un nom. Il se connecte avec son adresse email et un mot de passe.
+
+• Un utilisateur client renseigne sa date de naissance lors de l'inscription et peut envoyer une photo de sa carte étudiante ou la présenter au guichet pour la faire scanner. En fonction de ces critères, il dispose ou non d'un tarif particulier.
+
+• Le tarif possède un id, un libelle et le prix correspondant.
+
+• Le client peut achetter un ticket sur place, le paiement se fait alors en direct mais il peut également effectuer un paiement en ligne. Dans le cas du paiement en ligne, le ticket que le client désire réserver sera d'abord stocké dans son panier. Au bout de 60 minutes après avoir ajouté un article au panier, si le paiement n'est toujours pas validé, le panier du client sera vidé pour libérer la place.
+
+• Le ticket est généré lorsque le client choisi sa séance. Il contient toutes les informations de la projection. Il y a un id de ticket dont le préfixe change en fonction de la séance. Lorsque le nombre de places disponibles pour la séance est égal à zéro, il n'est plus possible de générer de ticket.
+
+• Le panier est volatile. Il dispose d'un id, l'id du client et de l'id du ticket. Si le paiement n'a pas été validé, il sera considéré comme expiré.
