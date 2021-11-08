@@ -9,13 +9,13 @@ CREATE TABLE utilisateur (
     id_utilisateur INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nom VARCHAR(20) NOT NULL,
     prenom VARCHAR(20) NOT NULL,
-    email VARCHAR(30) NOT NULL,
+    email VARCHAR(30) UNIQUE NOT NULL ,
     mot_de_passe VARCHAR(60) NOT NULL
 );
 
 CREATE TABLE tarif (
     id_tarif INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    libelle VARCHAR(10) NOT NULL,
+    libelle VARCHAR(15) UNIQUE NOT NULL,
     prix FLOAT NOT NULL
 );
 
@@ -48,7 +48,7 @@ CREATE TABLE film (
 
 CREATE TABLE classification (
     id_classification INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    libelle VARCHAR(30) NOT NULL,
+    libelle VARCHAR(30) UNIQUE NOT NULL,
     icone BLOB
 );
 
@@ -61,7 +61,7 @@ CREATE TABLE realisateur (
 
 CREATE TABLE genre (
     id_genre INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    libelle VARCHAR(20) NOT NULL
+    libelle VARCHAR(20) UNIQUE NOT NULL
 );
 
 CREATE TABLE projection (
@@ -71,7 +71,7 @@ CREATE TABLE projection (
 
 CREATE TABLE version (
     id_version INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    libelle VARCHAR(10) NOT NULL
+    libelle VARCHAR(10) UNIQUE NOT NULL
 );
 
 CREATE TABLE ville (
@@ -171,3 +171,68 @@ ADD FOREIGN KEY (utilisateur) REFERENCES utilisateur(id_utilisateur);
 ALTER TABLE administrateur
 ADD utilisateur INT NOT NULL,
 ADD FOREIGN KEY (utilisateur) REFERENCES utilisateur(id_utilisateur);
+
+-- Remplissage des tables
+INSERT INTO utilisateur (nom, prenom, email, mot_de_passe) VALUES
+	('Demouy', 'Vanessa', 'vanessa.demouy@gmail.com', '$2y$10$jdY4NuBm1.y9fT3MSMJ7TuUzd1bUl/EHzSq1f0rQMnEWAePBUzBrW'),
+	('Lunghini', 'Elsa', 'elsalunghini@yahoo.com', '$2y$10$7ZLqcGi02oSXGAukB4xH0eUv4Ym7HtupWWGIlb/dTVnJ5zwI8qEAm'),
+	('Marchal', 'Catherine', 'marchal.catherine@outlook.fr', '$2y$10$oDz9CaG5IRggK8uq.Ia0XeHILJCFmHVEpuCiu9zmdB88uD/34hp9u'),
+	('Wolfrom', 'Fabian', 'fab-wolf@gmail.com', '$2y$10$8sVc1jkJWNDMIJiQBzj9tu9FMg0dGrWC/gwKNybbQa2/NR5t45zJm'),
+	('Baroche', 'Benjamin', 'benbaroche@gmail.com', '$2y$10$NRBPS2H1Rj9ajA3LNBk69uIgkpnA2Xigfu48lsiyzLShrvJaUPVbm'),
+	('Benhamour', 'Rebecca', 'rebecca.benhamour@outlook.fr', '$2y$10$KjZ5O3a2rJnunavIE5egx.3G3EBMliziXpIi1t0f8PtqcmuxRyCMO'),
+	('Pons', 'Aurélie', 'pons-aurelie@gmail.com', '$2y$10$TuoS7IarkPwI3dXOv2LCZuQGqWEBkEoqbYNxJN4P/l2Wv7/0qpnw6'),
+	('Rémiens', 'Clément', 'clement.remiens@gmail.com', '$2y$10$W98wEry6bONlUUosXUynbODLYFM6VrZsXhzKSr1Nkw5AIp6bRhXqe'),
+	('Anselmo', 'Nicolas', 'nico.enselmo@gmail.com', '$2y$10$KdzVj49TfbvEcfYsEMlLaeo98Unrf5pErSTuFk6E0SMLnKpL.2/0a'),
+	('Davydzenka', 'Catherine', 'catherineda@gmail.com', '$2y$10$WXcMwRcFFJL0fX83rM8zouRW9LGxRkMR.tuUn/gJCcRtDbauh/QS6'),
+	('Mittelstadt', 'Mikael', 'mittelstadt-mikael@outlook.fr', '$2y$10$/QMCJNzaPOBzNpaHPz1HsOoj/pEra3.djIlc3JNgK8m.PXXLMwXAS'),
+    ('Diefenthal', 'Frédéric', 'frederic.diefenthal@outlook.fr', '$2y$10$NpGhOjyx07dw8mQoknQkVO/GRnRHD/sXB49SfhCVbR602jynuqUBu'),
+	('Galiana', 'Agustin', 'agustin-galiana@gmail.com', '$2y$10$4rAKCRpU0KnVneCT4tgBMuxwlZ2fbBpxq1j33KQojGEYnx70w1t.S'),
+	('Passaniti', 'Lucia', 'lucia.passaniti@matret.fr', '$2y$10$YGFA/AMHQUZAqrcAFiR7V.WVoPvXVQBPGDyemVyjiFE7BbxqI5Nmy'),
+	('Telle', 'Terence', 'terence.telle@gmail.com', '$2y$10$2ClCSGmlAgNBnSnQdIqVje7.GdUDcsszfVRArYjPMQM4l4BNAxR1m');
+
+INSERT INTO administrateur (telephone, utilisateur) VALUES
+	('0746869027', 1),
+	('0635125688', 2),
+	('0611438736', 3);
+
+INSERT INTO proprietaire (nb_cinema, utilisateur) VALUES
+	(2, 12),
+	(1, 13),
+	(5, 14),
+	(3, 15);
+
+INSERT INTO tarif (libelle, prix) VALUES
+	('Plein tarif', 9.20),
+	('Étudiant', 7.60),
+	('Moins de 14 ans', 5.90);
+
+INSERT INTO client (date_naissance, etudiant, carte_etudiante, utilisateur, tarif) VALUES
+	('1991-06-01', false, '', 4, 1),
+	('1971-05-22', false, '', 5, 1),
+	('1997-06-25', true, '', 6, 2),
+	('1996-04-03', true, '', 7, 2),
+	('1997-10-15', true, '', 8, 2),
+	('1998-06-21', true, '', 9, 2),
+	('2008-05-02', false, '', 10, 3),
+	('1997-01-02', true, '', 11, 2);
+
+INSERT INTO ville (nom, code_postal) VALUES
+	('Paris', 75000),
+	('Marseille', 13000),
+	('Lyon', 69000),
+	('Toulouse', 31000),
+	('Nice', 06000),
+	('Nantes', 44000);
+
+INSERT INTO cinema (nom, nb_salles, adresse, ville, proprietaire) VALUES
+	('Gaumé CE', 13, '23 Av. des Champs-Élysées', 1, 4),
+	('Gaumé MF', 8, '36 Av. du Maréchal Foch', 2, 4),
+	('Gaumé Vaise', 9, '43 Rue de Docks', 3, 4),
+	('Matret Bellecour', 10, '79 Rue de la République', 3, 3),
+	('Matret Concorde', 7, '79 Bd de l\'Égalité', 6, 3),
+	('Matret Rialto', 7, '4 Rue de Rivoli', 5, 3),
+	('Matret Palais', 12, '170 Bd de Magenta', 1, 3),
+	('Matret Galande', 5, '42 Rue Galande', 1, 3),
+	('Le Wilson', 3, '3 PI. du Président Thomas Wilson', 4, 1),
+	('Le Borderouge', 1, '59 Av. Maurice Bourgès-Maunoury', 4, 1),
+	('L\'Équinox', 1, '13 Av. Berthelot', 3, 2);
