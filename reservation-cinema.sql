@@ -119,8 +119,10 @@ ADD FOREIGN KEY (tarif) REFERENCES tarif(id_tarif);
 ALTER TABLE ticket
 ADD client INT,
 ADD place INT NOT NULL,
+ADD projection INT NOT NULL,
 ADD FOREIGN KEY (client) REFERENCES client(id_client),
-ADD FOREIGN KEY (place) REFERENCES place(id_place);
+ADD FOREIGN KEY (place) REFERENCES place(id_place),
+ADD FOREIGN KEY (projection) REFERENCES projection(id_projection);
 
 ALTER TABLE panier
 ADD client INT NOT NULL,
@@ -350,3 +352,66 @@ INSERT INTO genre (libelle) VALUES
 	('Horreur'),
 	('Science Fiction'),
 	('Action');
+
+INSERT INTO film (titre, sortie, synopsis, classification, realisateur, genre) VALUES
+	('Le Dernier Duel', '2021-10-13', 'Basé sur des événements réels, le film dévoile d\'anciennes hypothèses sur le dernier duel judiciaire connu en France - également nommé « Jugement de Dieu » - entre Jean de Carrouges et Jacques Le Gris, deux amis devenus au fil du temps des rivaux acharnés.', 2, 6, 2),
+	('Boîte Noire', '2021-09-08', 'Que s\'est-il passé à bord du vol Dubaï-Paris avant son crash dans le massif alpin Technicien au BEA, autorité responsable des enquêtes de sécurité dans l\'aviation civile, Mathieu Vasseur est propulsé enquêteur en chef sur une catastrophe aérienne sans précédent.', 1, 8, 1),
+	('Dune', '2021-09-15', 'L\'histoire de Paul Atreides, jeune homme aussi doué que brillant, voué à connaître un destin hors du commun qui le dépasse totalement.', 1, 7, 4),
+	('Halloween Kills', '2021-10-20', 'Laurie Strode, sa fille Karen et sa petite fille Allyson viennent d\'abandonner le monstre au célèbre masque, enfermé dans le sous-sol de la maison dévorée par les flammes. Les trois générations de femmes vont s\'associer pour tuer le monstre une bonne fois pour toute.', 2, 5, 3),
+	('Eiffel', '2021-10-13', 'Venant tout juste de terminer sa collaboration sur la Statue de la Liberté, Gustave Eiffel est au sommet de sa carrière.', 1, 4, 2),
+	('Mourir Peut Attendre', '2021-10-06', 'James Bond a quitté les services secrets et coule des jours heureux en Jamaïque. Mais sa tranquillité est de courte durée car son vieil ami Felix Leiter de la CIA débarque pour solliciter son aide : il s\'agit de sauver un scientifique qui vient d\'être kidnappé.', 1, 3, 5),
+	('Venom : Let There Be Carnage', '2021-10-20', 'Tom Hardy est de retour sur grand écran sous les traits de Venom, l\'un des personnages les plus complexes de l\'univers Marvel.', 2, 2, 5),
+	('Les Eternels', '2021-11-03', 'Depuis l\'aube de l\'humanité, les Éternels, un groupe de héros venus des confins de l\'univers, protègent la Terre. Lorsque les Déviants, des créatures monstrueuses que l\'on croyait disparues depuis longtemps, réapparaissent mystérieusement, les Éternels sont à nouveau obligés de se réunir pour défendre l\'humanité.', 1, 1, 4);
+
+INSERT INTO version (libelle) VALUES
+	('VF'),
+	('VOST');
+
+INSERT INTO projection (horaire, film, version, salle) VALUES
+	('2021-11-09 14:00', 1, 2, 1),
+	('2021-11-09 14:00', 2, 1, 2),
+	('2021-11-09 14:00', 1, 1, 3),
+	('2021-11-09 14:00', 3, 2, 4),
+	('2021-11-09 16:00', 4, 2, 5),
+	('2021-11-09 16:00', 4, 1, 6),
+	('2021-11-09 16:00', 5, 2, 7),
+	('2021-11-09 18:00', 8, 2, 1),
+	('2021-11-09 18:00', 7, 1, 3),
+	('2021-11-09 18:00', 7, 1, 8),
+	('2021-11-09 20:00', 6, 1, 4),
+	('2021-11-09 20:00', 5, 1, 6);
+
+-- Les clients sur place achètent les tickets
+INSERT INTO ticket (client, place, projection) VALUES
+	(1, 1, 1),
+	(2, 2, 1),
+	(3, 3, 2),
+	(4, 4, 2);
+
+-- Les règlements sont enregistrés
+INSERT INTO paiement (somme, ticket) VALUES
+	(9.2, 1),
+	(9.2, 2),
+	(7.6, 3),
+	(7.6, 4);
+
+-- Les client commandent leur ticket en ligne
+INSERT INTO ticket (client, place, projection) VALUES
+	(5, 5, 2),
+	(6, 6, 2),
+	(7, 9, 3),
+	(8, 10, 3);
+
+-- Le ticket qu'un client commande est enregistré dans son panier
+INSERT INTO panier (client, ticket) VALUES
+	(5, 5),
+	(6, 6),
+	(7, 7),
+	(8, 8);
+
+-- Les règlements des paniers sont enregistrés
+INSERT INTO paiement (somme, panier) VALUES
+	(7.6, 1),
+	(7.6, 2),
+	(5.9, 3),
+	(7.6, 4);
